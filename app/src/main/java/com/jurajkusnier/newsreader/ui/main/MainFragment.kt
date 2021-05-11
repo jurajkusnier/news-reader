@@ -18,9 +18,26 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val binding = MainFragmentBinding.bind(view)
 
         val newsAdapter = NewsAdapter()
-        binding.recyclerView.adapter = newsAdapter
-        viewModel.news.observe(viewLifecycleOwner) {
-            newsAdapter.submitList(it)
+        with(binding) {
+            recyclerView.adapter = newsAdapter
+
+            viewModel.news.observe(viewLifecycleOwner) {
+                when (it) {
+                    is MainViewModel.NewsState.Done -> {
+                        newsAdapter.submitList(it.list)
+                        loadingProgressBar.visibility = View.GONE
+                        errorText.visibility = View.GONE
+                    }
+                    MainViewModel.NewsState.Error -> {
+                        loadingProgressBar.visibility = View.GONE
+                        errorText.visibility = View.VISIBLE
+                    }
+                    MainViewModel.NewsState.Loading -> {
+                        loadingProgressBar.visibility = View.VISIBLE
+                        errorText.visibility = View.GONE
+                    }
+                }
+            }
         }
     }
 
