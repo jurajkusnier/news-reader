@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.jurajkusnier.newsreader.R
+import com.jurajkusnier.newsreader.databinding.MainFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,7 +15,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.test()
+        val binding = MainFragmentBinding.bind(view)
+
+        val newsAdapter = NewsAdapter()
+        binding.recyclerView.adapter = newsAdapter
+        viewModel.news.observe(viewLifecycleOwner) {
+            newsAdapter.submitList(it)
+        }
     }
 
     companion object {
