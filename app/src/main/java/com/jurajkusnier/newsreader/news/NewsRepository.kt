@@ -67,5 +67,4 @@ class NewsRepository @Inject constructor(
             }
         }
     }
-
 }

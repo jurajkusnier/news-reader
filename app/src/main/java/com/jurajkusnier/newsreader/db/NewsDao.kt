@@ -16,5 +16,4 @@ interface NewsDao {
 
     @Query("DELETE FROM articles")
     fun clear()
-
 }

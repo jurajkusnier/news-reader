@@ -1,15 +1,13 @@
 package com.jurajkusnier.newsreader.ui.main
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.jurajkusnier.newsreader.R
 import com.jurajkusnier.newsreader.databinding.MainFragmentBinding
 import com.jurajkusnier.newsreader.news.NewsRepository
@@ -26,12 +24,25 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
         with(MainFragmentBinding.bind(view)) {
-            (activity as AppCompatActivity).setSupportActionBar(topAppBar)
+            topAppBar.apply {
+                setupWithNavController(findNavController())
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.refresh -> {
+                            viewModel.update()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }
 
-            recyclerView.adapter = newsAdapter
+            recyclerView.adapter = newsAdapter.apply {
+                clickListener = ::openDetail
+            }
+
             viewModel.news.observe(viewLifecycleOwner) {
                 newsAdapter.submitList(it.articles)
                 when (it.networkState) {
@@ -41,6 +52,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 }
             }
         }
+    }
+
+    private fun openDetail() {
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment())
     }
 
     private fun MainFragmentBinding.renderIdleNetworkState() {
@@ -56,24 +71,5 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun MainFragmentBinding.renderLoadingNetworkState() {
         loadingProgressBar.isVisible = true
         errorText.isGone = true
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.main_fragment_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.refresh -> {
-                viewModel.update()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    companion object {
-        fun newInstance() = MainFragment()
     }
 }

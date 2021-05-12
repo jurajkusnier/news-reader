@@ -9,16 +9,23 @@ import com.jurajkusnier.newsreader.databinding.ArticleListItemBinding
 import com.jurajkusnier.newsreader.news.NewsRepository
 import javax.inject.Inject
 
+typealias NewsClickListener = () -> Unit
+
 class NewsAdapter @Inject constructor() :
     ListAdapter<NewsRepository.Article, NewsAdapter.ViewHolder>(ITEM_COMPARATOR) {
+
+    var clickListener: NewsClickListener? = null
 
     class ViewHolder(private val binding: ArticleListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: NewsRepository.Article) {
+        fun bind(article: NewsRepository.Article, clickListener: NewsClickListener?) {
             with(binding) {
                 articleAuthor.text = article.getAuthor(binding.root.context)
                 articleTitle.text = article.title
+                articleLayout.setOnClickListener {
+                    clickListener?.invoke()
+                }
             }
         }
     }
@@ -28,7 +35,7 @@ class NewsAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
     companion object {
