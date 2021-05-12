@@ -1,6 +1,8 @@
 package com.jurajkusnier.newsreader.news
 
+import android.content.Context
 import android.util.Log
+import com.jurajkusnier.newsreader.R
 import com.jurajkusnier.newsreader.api.ArticleDto
 import com.jurajkusnier.newsreader.api.NewsService
 import com.jurajkusnier.newsreader.db.ArticleEntity
@@ -17,7 +19,7 @@ class NewsRepository @Inject constructor(
     private val mutableNetworkStateFlow = MutableStateFlow(NetworkState.IDLE)
 
     val news = mutableNetworkStateFlow.combine(newsDao.getAll()) { networkState, cachedData ->
-        Log.d("UPDATE","network = $networkState cached items = ${cachedData.size}")
+        Log.d("UPDATE", "network = $networkState cached items = ${cachedData.size}")
         News(cachedData.map { Article.from(it) }, networkState)
     }
 
@@ -47,7 +49,14 @@ class NewsRepository @Inject constructor(
 
     data class News(val articles: List<Article>, val networkState: NetworkState)
 
-    data class Article(val title: String, val author: String?, val description: String?) {
+    data class Article(val title: String, private val author: String?, val description: String?) {
+
+        fun getAuthor(context: Context): String =
+            if (author.isNullOrBlank())
+                context.getString(R.string.anonymous)
+            else
+                author
+
         companion object {
             fun from(articleEntity: ArticleEntity): Article {
                 return Article(

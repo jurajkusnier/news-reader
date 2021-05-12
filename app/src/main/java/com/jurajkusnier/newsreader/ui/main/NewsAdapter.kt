@@ -17,7 +17,7 @@ class NewsAdapter @Inject constructor() :
 
         fun bind(article: NewsRepository.Article) {
             with(binding) {
-                articleAuthor.text = article.author
+                articleAuthor.text = article.getAuthor(binding.root.context)
                 articleTitle.text = article.title
             }
         }

@@ -13,24 +13,24 @@
     android:paddingBottom="8dp">
 
     <TextView
-        android:id="@+id/article_title"
+        android:id="@+id/article_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintBottom_toTopOf="@id/article_author"
+        app:layout_constraintBottom_toTopOf="@id/article_title"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Author" />
 
     <TextView
-        android:id="@+id/article_author"
+        android:id="@+id/article_title"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/article_title"
+        app:layout_constraintTop_toBottomOf="@id/article_author"
         tools:text="Title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

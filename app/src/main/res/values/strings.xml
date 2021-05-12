@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">News Reader</string>
     <string name="loading_error">Something went wrong. Check your internet connection.</string>
+    <string name="anonymous">Anonymous</string>
+    <string name="refresh">Refresh</string>
+    <string name="refresh_content_description">Refresh articles</string>
 </resources>

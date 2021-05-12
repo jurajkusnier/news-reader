@@ -1,7 +1,11 @@
 package com.jurajkusnier.newsreader.ui.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -22,8 +26,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         with(MainFragmentBinding.bind(view)) {
+            (activity as AppCompatActivity).setSupportActionBar(topAppBar)
+
             recyclerView.adapter = newsAdapter
             viewModel.news.observe(viewLifecycleOwner) {
                 newsAdapter.submitList(it.articles)
@@ -49,6 +56,21 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun MainFragmentBinding.renderLoadingNetworkState() {
         loadingProgressBar.isVisible = true
         errorText.isGone = true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.refresh -> {
+                viewModel.update()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {

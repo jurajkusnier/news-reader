@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(private val newsRepository: NewsReposito
         update()
     }
 
-    private fun update() {
+    fun update() {
         viewModelScope.launch(Dispatchers.IO) {
             newsRepository.updateNews("us")
         }
