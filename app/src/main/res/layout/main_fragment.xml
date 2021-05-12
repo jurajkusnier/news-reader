@@ -9,7 +9,6 @@
             type="com.jurajkusnier.newsreader.ui.main.MainViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
