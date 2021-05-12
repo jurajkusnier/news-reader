@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jurajkusnier.newsreader.databinding.ArticleListItemBinding
 import com.jurajkusnier.newsreader.news.ArticleDto
 
-class NewsAdapter() : ListAdapter<ArticleDto, NewsAdapter.ViewHolder>(ITEM_COMPARATOR) {
+class NewsAdapter : ListAdapter<ArticleDto, NewsAdapter.ViewHolder>(ITEM_COMPARATOR) {
 
     class ViewHolder(private val binding: ArticleListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

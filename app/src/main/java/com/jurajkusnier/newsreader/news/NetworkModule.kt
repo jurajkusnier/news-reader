@@ -29,5 +29,4 @@ object NetworkModule {
 
     @Provides
     fun provideNewsService(retrofit: Retrofit) = retrofit.create(NewsService::class.java)
-
 }

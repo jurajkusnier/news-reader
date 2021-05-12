@@ -22,7 +22,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             recyclerView.adapter = newsAdapter
             mainViewModel = viewModel
             viewModel.news.observe(viewLifecycleOwner) {
-                if (it is  MainViewModel.NewsState.Done) {
+                if (it is MainViewModel.NewsState.Done) {
                     newsAdapter.submitList(it.list)
                 }
             }
