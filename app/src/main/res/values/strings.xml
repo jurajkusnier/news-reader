@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">NewsReader</string>
+    <string name="app_name">News Reader</string>
+    <string name="loading_error">Something went wrong. Check your internet connection.</string>
 </resources>
