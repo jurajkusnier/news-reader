@@ -6,14 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jurajkusnier.newsreader.databinding.ArticleListItemBinding
-import com.jurajkusnier.newsreader.news.ArticleDto
+import com.jurajkusnier.newsreader.news.NewsRepository
+import javax.inject.Inject
 
-class NewsAdapter : ListAdapter<ArticleDto, NewsAdapter.ViewHolder>(ITEM_COMPARATOR) {
+class NewsAdapter @Inject constructor() :
+    ListAdapter<NewsRepository.Article, NewsAdapter.ViewHolder>(ITEM_COMPARATOR) {
 
     class ViewHolder(private val binding: ArticleListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: ArticleDto) {
+        fun bind(article: NewsRepository.Article) {
             with(binding) {
                 articleAuthor.text = article.author
                 articleTitle.text = article.title
@@ -30,12 +32,18 @@ class NewsAdapter : ListAdapter<ArticleDto, NewsAdapter.ViewHolder>(ITEM_COMPARA
     }
 
     companion object {
-        private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<ArticleDto>() {
-            override fun areItemsTheSame(oldItem: ArticleDto, newItem: ArticleDto): Boolean {
+        private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<NewsRepository.Article>() {
+            override fun areItemsTheSame(
+                oldItem: NewsRepository.Article,
+                newItem: NewsRepository.Article
+            ): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: ArticleDto, newItem: ArticleDto): Boolean {
+            override fun areContentsTheSame(
+                oldItem: NewsRepository.Article,
+                newItem: NewsRepository.Article
+            ): Boolean {
                 return oldItem == newItem
             }
         }
