@@ -12,7 +12,7 @@ interface NewsDao {
     fun getAll(): Flow<List<ArticleEntity>>
 
     @Query("SELECT * FROM articles WHERE id = :id")
-    fun getArticle(id:Int): Flow<ArticleEntity>
+    fun getArticle(id: Int): Flow<ArticleEntity>
 
     @Insert
     fun insert(articles: List<ArticleEntity>)

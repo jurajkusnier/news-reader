@@ -3,8 +3,7 @@ package com.jurajkusnier.newsreader.db
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.jurajkusnier.newsreader.api.ArticleDto
-import com.jurajkusnier.newsreader.api.SourceDto
-import java.util.*
+import java.util.Date
 
 @Entity(tableName = "articles")
 data class ArticleEntity(

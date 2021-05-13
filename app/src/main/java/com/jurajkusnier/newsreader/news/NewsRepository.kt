@@ -11,7 +11,7 @@ import com.jurajkusnier.newsreader.util.toMediumUIFormat
 import com.jurajkusnier.newsreader.util.toUIFormat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
@@ -106,5 +106,4 @@ class NewsRepository @Inject constructor(
             }
         }
     }
-
 }

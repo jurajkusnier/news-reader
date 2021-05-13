@@ -1,7 +1,7 @@
 package com.jurajkusnier.newsreader.api
 
 import com.squareup.moshi.JsonClass
-import java.util.*
+import java.util.Date
 
 @JsonClass(generateAdapter = true)
 data class HeadlinesDto(val status: String, val articles: List<ArticleDto>)

@@ -15,7 +15,6 @@ import com.jurajkusnier.newsreader.databinding.DetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.detail_fragment) {
 

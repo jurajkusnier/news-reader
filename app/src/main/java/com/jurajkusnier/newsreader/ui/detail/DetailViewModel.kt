@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
-
 class DetailViewModel @AssistedInject constructor(
     @Assisted private val articleId: Int,
     detailRepository: DetailRepository
@@ -31,5 +30,4 @@ class DetailViewModel @AssistedInject constructor(
             }
         }
     }
-
 }
