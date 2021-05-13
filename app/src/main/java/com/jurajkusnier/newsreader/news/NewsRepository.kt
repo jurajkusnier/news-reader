@@ -2,13 +2,14 @@ package com.jurajkusnier.newsreader.news
 
 import android.content.Context
 import android.util.Log
-import com.jurajkusnier.newsreader.R
 import com.jurajkusnier.newsreader.api.ArticleDto
 import com.jurajkusnier.newsreader.api.NewsService
 import com.jurajkusnier.newsreader.db.ArticleEntity
 import com.jurajkusnier.newsreader.db.NewsDao
+import com.jurajkusnier.newsreader.util.toUIFormat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import java.util.*
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
@@ -34,6 +35,7 @@ class NewsRepository @Inject constructor(
                 mutableNetworkStateFlow.emit(NetworkState.ERROR)
             }
         } catch (exception: Exception) {
+            Log.e("NetworkRepository", exception.toString())
             mutableNetworkStateFlow.emit(NetworkState.ERROR)
         }
     }
@@ -49,20 +51,22 @@ class NewsRepository @Inject constructor(
 
     data class News(val articles: List<Article>, val networkState: NetworkState)
 
-    data class Article(val title: String, private val author: String?, val description: String?) {
+    data class Article(
+        val id: Int,
+        val source: String,
+        val title: String?,
+        private val publishedAt: Date
+    ) {
 
-        fun getAuthor(context: Context): String =
-            if (author.isNullOrBlank())
-                context.getString(R.string.anonymous)
-            else
-                author
+        fun getPublishedDate(context: Context) = publishedAt.toUIFormat(context)
 
         companion object {
             fun from(articleEntity: ArticleEntity): Article {
                 return Article(
+                    id = articleEntity.id,
                     title = articleEntity.title,
-                    author = articleEntity.author,
-                    description = articleEntity.description
+                    source = articleEntity.sourceName,
+                    publishedAt = articleEntity.publishedAt
                 )
             }
         }

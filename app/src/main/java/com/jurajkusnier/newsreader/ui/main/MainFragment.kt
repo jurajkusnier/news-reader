@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.jurajkusnier.newsreader.R
 import com.jurajkusnier.newsreader.databinding.MainFragmentBinding
 import com.jurajkusnier.newsreader.news.NewsRepository
@@ -39,6 +40,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 }
             }
 
+            recyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
             recyclerView.adapter = newsAdapter.apply {
                 clickListener = ::openDetail
             }

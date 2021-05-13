@@ -5,22 +5,34 @@
     android:id="@+id/article_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="8dp">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/article_author"
-        android:layout_width="match_parent"
+        android:id="@+id/article_source"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/article_title"
+        app:layout_constraintStart_toStartOf="parent"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintBottom_toTopOf="@id/article_title"
+        android:layout_marginEnd="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Author" />
+        app:layout_constraintEnd_toStartOf="@id/article_published"
+        tools:text="Source" />
+
+    <TextView
+        android:id="@+id/article_published"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/article_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="12.03.2021" />
 
     <TextView
         android:id="@+id/article_title"
@@ -29,8 +41,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
+        android:paddingTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/article_author"
+        app:layout_constraintTop_toBottomOf="@id/article_published"
         tools:text="Title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

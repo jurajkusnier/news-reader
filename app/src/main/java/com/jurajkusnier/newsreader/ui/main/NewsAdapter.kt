@@ -21,7 +21,8 @@ class NewsAdapter @Inject constructor() :
 
         fun bind(article: NewsRepository.Article, clickListener: NewsClickListener?) {
             with(binding) {
-                articleAuthor.text = article.getAuthor(binding.root.context)
+                articlePublished.text = article.getPublishedDate(binding.root.context)
+                articleSource.text = article.source
                 articleTitle.text = article.title
                 articleLayout.setOnClickListener {
                     clickListener?.invoke()
