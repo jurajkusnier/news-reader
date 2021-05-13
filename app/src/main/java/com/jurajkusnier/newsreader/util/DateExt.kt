@@ -5,3 +5,6 @@ import java.util.*
 
 fun Date.toUIFormat(context: Context): String =
     android.text.format.DateFormat.getDateFormat(context).format(this)
+
+fun Date.toMediumUIFormat(context: Context): String =
+    android.text.format.DateFormat.getMediumDateFormat(context).format(this)

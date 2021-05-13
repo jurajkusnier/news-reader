@@ -19,6 +19,11 @@
         android:id="@+id/detailFragment"
         android:name="com.jurajkusnier.newsreader.ui.detail.DetailFragment"
         android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment" />
+        tools:layout="@layout/detail_fragment" >
+
+        <argument
+            android:name="articleId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

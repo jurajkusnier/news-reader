@@ -4,6 +4,6 @@
     <string name="anonymous">Anonymous</string>
     <string name="refresh">Refresh</string>
     <string name="refresh_content_description">Refresh articles</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="article_from">Article from %s</string>
+    <string name="read_more">Read More</string>
 </resources>

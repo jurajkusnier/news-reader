@@ -38,6 +38,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                         else -> false
                     }
                 }
+                title = getString(R.string.app_name)
             }
 
             recyclerView.addItemDecoration(
@@ -61,8 +62,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
-    private fun openDetail() {
-        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment())
+    private fun openDetail(articleId: Int) {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToDetailFragment(
+                articleId
+            )
+        )
     }
 
     private fun MainFragmentBinding.renderIdleNetworkState() {

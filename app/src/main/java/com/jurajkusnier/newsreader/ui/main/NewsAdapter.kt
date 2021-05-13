@@ -9,7 +9,7 @@ import com.jurajkusnier.newsreader.databinding.ArticleListItemBinding
 import com.jurajkusnier.newsreader.news.NewsRepository
 import javax.inject.Inject
 
-typealias NewsClickListener = () -> Unit
+typealias NewsClickListener = (articleId: Int) -> Unit
 
 class NewsAdapter @Inject constructor() :
     ListAdapter<NewsRepository.Article, NewsAdapter.ViewHolder>(ITEM_COMPARATOR) {
@@ -21,11 +21,11 @@ class NewsAdapter @Inject constructor() :
 
         fun bind(article: NewsRepository.Article, clickListener: NewsClickListener?) {
             with(binding) {
-                articlePublished.text = article.getPublishedDate(binding.root.context)
-                articleSource.text = article.source
+                articlePublished.text = article.getPublishedDate(root.context)
+                articleSource.text = article.sourceName
                 articleTitle.text = article.title
                 articleLayout.setOnClickListener {
-                    clickListener?.invoke()
+                    clickListener?.invoke(article.id)
                 }
             }
         }
