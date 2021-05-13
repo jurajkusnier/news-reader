@@ -1,7 +1,6 @@
 package com.jurajkusnier.newsreader.news
 
 import android.content.Context
-import android.util.Log
 import com.jurajkusnier.newsreader.R
 import com.jurajkusnier.newsreader.api.ArticleDto
 import com.jurajkusnier.newsreader.api.NewsService
@@ -11,6 +10,7 @@ import com.jurajkusnier.newsreader.util.toMediumUIFormat
 import com.jurajkusnier.newsreader.util.toUIFormat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
 
@@ -22,7 +22,6 @@ class NewsRepository @Inject constructor(
     private val mutableNetworkStateFlow = MutableStateFlow(NetworkState.IDLE)
 
     val news = mutableNetworkStateFlow.combine(newsDao.getAll()) { networkState, cachedData ->
-        Log.d("UPDATE", "network = $networkState cached items = ${cachedData.size}")
         News(cachedData.map { Article.from(it) }, networkState)
     }
 
@@ -34,10 +33,11 @@ class NewsRepository @Inject constructor(
                 saveArticlesToDb(response.body()?.articles ?: listOf())
                 mutableNetworkStateFlow.emit(NetworkState.IDLE)
             } else {
+                Timber.e("API response was not successful, code = ${response.code()}")
                 mutableNetworkStateFlow.emit(NetworkState.ERROR)
             }
         } catch (exception: Exception) {
-            Log.e("NetworkRepository", exception.toString())
+            Timber.e(exception)
             mutableNetworkStateFlow.emit(NetworkState.ERROR)
         }
     }
