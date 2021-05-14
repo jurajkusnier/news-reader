@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/article_list_fragment_menu"
+            app:navigationIcon="@drawable/ic_baseline_assignment_24"
             app:title="@string/app_name" />
 
         <ProgressBar

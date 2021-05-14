@@ -57,6 +57,7 @@ class ArticleListFragment : Fragment(R.layout.article_list_fragment) {
     private fun setupToolbar() {
         binding.topAppBar.apply {
             setupWithNavController(findNavController())
+            setNavigationIcon(R.drawable.ic_baseline_assignment_24)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.refresh -> {
