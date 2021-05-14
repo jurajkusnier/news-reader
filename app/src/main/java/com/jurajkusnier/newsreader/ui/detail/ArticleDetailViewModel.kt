@@ -1,13 +1,15 @@
 package com.jurajkusnier.newsreader.ui.detail
 
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.jurajkusnier.newsreader.repository.ArticleDetailRepository
+import com.jurajkusnier.newsreader.util.SingleLiveEvent
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
-class DetailViewModel @AssistedInject constructor(
+class ArticleDetailViewModel @AssistedInject constructor(
     @Assisted private val articleId: Int,
     articleDetailRepository: ArticleDetailRepository
 ) :
@@ -15,9 +17,15 @@ class DetailViewModel @AssistedInject constructor(
 
     val article = articleDetailRepository.getArticle(articleId).asLiveData()
 
+    val action = SingleLiveEvent<ArticleDetailActions>()
+
+    fun openUrl() {
+        article.value?.url?.let { url -> action.value = ArticleDetailActions.OpenUrl(url.toUri()) }
+    }
+
     @dagger.assisted.AssistedFactory
     interface AssistedFactory {
-        fun create(articleId: Int): DetailViewModel
+        fun create(articleId: Int): ArticleDetailViewModel
     }
 
     companion object {

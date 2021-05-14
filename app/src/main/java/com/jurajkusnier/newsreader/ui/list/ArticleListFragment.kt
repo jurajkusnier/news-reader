@@ -15,13 +15,17 @@ import com.google.android.material.snackbar.Snackbar
 import com.jurajkusnier.newsreader.R
 import com.jurajkusnier.newsreader.databinding.ArticleListFragmentBinding
 import com.jurajkusnier.newsreader.model.LoadingState
+import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ArticleListFragment : Fragment(R.layout.article_list_fragment) {
 
     private val viewModel: ArticleListViewModel by viewModels()
+
+    private val binding by viewBinding(ArticleListFragmentBinding::bind)
 
     @Inject
     lateinit var articleListAdapter: ArticleListAdapter
@@ -31,49 +35,59 @@ class ArticleListFragment : Fragment(R.layout.article_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(ArticleListFragmentBinding.bind(view)) {
-            topAppBar.apply {
-                setupWithNavController(findNavController())
-                setOnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.refresh -> {
-                            viewModel.update()
-                            true
-                        }
-                        else -> false
-                    }
-                }
-            }
+        setupToolbar()
+        setupRecyclerView()
 
-            recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                    context,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
-            recyclerView.adapter = articleListAdapter.apply {
-                clickListener = ::openDetail
-            }
-
-            viewModel.articleList.observe(viewLifecycleOwner) {
-                articleListAdapter.submitList(it.articles)
+        viewModel.articleList.observe(viewLifecycleOwner) {
+            Timber.d("articleList.observe = ${it.articles.size} ${it.loadingState}")
+            articleListAdapter.submitList(it.articles)
+            with(binding) {
                 when (it.loadingState) {
                     LoadingState.DONE -> renderIdleNetworkState()
                     LoadingState.LOADING -> renderLoadingNetworkState()
                 }
             }
+        }
 
-            viewModel.error.observe(viewLifecycleOwner) {
-                showErrorMessage()
+        viewModel.error.observe(viewLifecycleOwner) {
+            showErrorMessage()
+        }
+    }
+
+    private fun setupToolbar() {
+        binding.topAppBar.apply {
+            setupWithNavController(findNavController())
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.refresh -> {
+                        viewModel.update()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        Timber.d("setupRecyclerView($articleListAdapter)")
+        binding.recyclerView.apply {
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+            Timber.d("adapter = $articleListAdapter")
+            adapter = articleListAdapter.apply {
+                clickListener = ::openDetail
             }
         }
     }
 
     private fun openDetail(articleId: Int) {
         findNavController().navigate(
-            ArticleListFragmentDirections.actionListFragmentToDetailFragment(
-                articleId
-            )
+            ArticleListFragmentDirections.actionListFragmentToDetailFragment(articleId)
         )
     }
 
