@@ -24,8 +24,8 @@ Feel free to use this project as a template for your own app.
 - Kotlin [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) + Asynchronous Flow
 - [Retrofit](https://square.github.io/retrofit/) + Moshi to make API calls
 - [Room](https://developer.android.com/jetpack/androidx/releases/room) as offline cache
-- (Hilt)[https://dagger.dev/hilt/] as a DI
-- (Coil)[https://github.com/coil-kt/coil] image loading library
+- [Hilt](https://dagger.dev/hilt/) as a DI
+- [Coil](https://github.com/coil-kt/coil) image loading library
 
 ## Building
 To build the project you have to copy `client.default.properties` to `client.properties` and replace `API_KEY` with your api key.
