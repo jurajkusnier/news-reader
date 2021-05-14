@@ -1,8 +1,8 @@
-package com.jurajkusnier.newsreader.db
+package com.jurajkusnier.newsreader.storage.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.jurajkusnier.newsreader.api.ArticleDto
+import com.jurajkusnier.newsreader.network.ArticleDto
 import java.util.Date
 
 @Entity(tableName = "articles")

@@ -1,4 +1,4 @@
-package com.jurajkusnier.newsreader.ui.main
+package com.jurajkusnier.newsreader.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jurajkusnier.newsreader.databinding.ArticleListItemBinding
-import com.jurajkusnier.newsreader.news.NewsRepository
+import com.jurajkusnier.newsreader.model.Article
 import javax.inject.Inject
 
-typealias NewsClickListener = (articleId: Int) -> Unit
+typealias ArticleClickListener = (articleId: Int) -> Unit
 
-class NewsAdapter @Inject constructor() :
-    ListAdapter<NewsRepository.Article, NewsAdapter.ViewHolder>(ITEM_COMPARATOR) {
+class ArticleListAdapter @Inject constructor() :
+    ListAdapter<Article, ArticleListAdapter.ViewHolder>(ITEM_COMPARATOR) {
 
-    var clickListener: NewsClickListener? = null
+    var clickListener: ArticleClickListener? = null
 
     class ViewHolder(private val binding: ArticleListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: NewsRepository.Article, clickListener: NewsClickListener?) {
+        fun bind(article: Article, clickListener: ArticleClickListener?) {
             with(binding) {
                 articlePublished.text = article.getPublishedDate(root.context)
                 articleSource.text = article.sourceName
@@ -32,7 +32,13 @@ class NewsAdapter @Inject constructor() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ArticleListItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return ViewHolder(
+            ArticleListItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,17 +46,17 @@ class NewsAdapter @Inject constructor() :
     }
 
     companion object {
-        private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<NewsRepository.Article>() {
+        private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<Article>() {
             override fun areItemsTheSame(
-                oldItem: NewsRepository.Article,
-                newItem: NewsRepository.Article
+                oldItem: Article,
+                newItem: Article
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: NewsRepository.Article,
-                newItem: NewsRepository.Article
+                oldItem: Article,
+                newItem: Article
             ): Boolean {
                 return oldItem == newItem
             }

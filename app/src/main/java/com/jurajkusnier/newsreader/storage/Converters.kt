@@ -1,4 +1,4 @@
-package com.jurajkusnier.newsreader.db
+package com.jurajkusnier.newsreader.storage
 
 import androidx.room.TypeConverter
 import java.util.Date

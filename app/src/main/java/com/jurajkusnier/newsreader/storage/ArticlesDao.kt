@@ -1,12 +1,13 @@
-package com.jurajkusnier.newsreader.db
+package com.jurajkusnier.newsreader.storage
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.jurajkusnier.newsreader.storage.entity.ArticleEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NewsDao {
+interface ArticlesDao {
 
     @Query("SELECT * FROM articles")
     fun getAll(): Flow<List<ArticleEntity>>

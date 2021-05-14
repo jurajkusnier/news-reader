@@ -3,16 +3,17 @@ package com.jurajkusnier.newsreader.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import com.jurajkusnier.newsreader.repository.ArticleDetailRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
 class DetailViewModel @AssistedInject constructor(
     @Assisted private val articleId: Int,
-    detailRepository: DetailRepository
+    articleDetailRepository: ArticleDetailRepository
 ) :
     ViewModel() {
 
-    val article = detailRepository.getArticle(articleId).asLiveData()
+    val article = articleDetailRepository.getArticle(articleId).asLiveData()
 
     @dagger.assisted.AssistedFactory
     interface AssistedFactory {

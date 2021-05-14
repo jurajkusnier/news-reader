@@ -1,4 +1,4 @@
-package com.jurajkusnier.newsreader.api
+package com.jurajkusnier.newsreader.network
 
 import com.squareup.moshi.JsonClass
 import java.util.Date

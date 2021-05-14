@@ -11,14 +11,14 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import coil.load
 import com.jurajkusnier.newsreader.R
-import com.jurajkusnier.newsreader.databinding.DetailFragmentBinding
+import com.jurajkusnier.newsreader.databinding.ArticleDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(R.layout.detail_fragment) {
+class ArticleDetailFragment : Fragment(R.layout.article_detail_fragment) {
 
-    private val navArgs by navArgs<DetailFragmentArgs>()
+    private val navArgs by navArgs<ArticleDetailFragmentArgs>()
 
     @Inject
     lateinit var viewModelFactory: DetailViewModel.AssistedFactory
@@ -30,7 +30,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = DetailFragmentBinding.bind(view).apply {
+        val binding = ArticleDetailFragmentBinding.bind(view).apply {
             topAppBar.setupWithNavController(findNavController())
         }
 

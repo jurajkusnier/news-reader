@@ -1,4 +1,4 @@
-package com.jurajkusnier.newsreader.api
+package com.jurajkusnier.newsreader.network
 
 import retrofit2.Response
 import retrofit2.http.GET

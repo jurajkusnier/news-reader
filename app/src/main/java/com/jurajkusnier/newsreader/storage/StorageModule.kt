@@ -1,4 +1,4 @@
-package com.jurajkusnier.newsreader.db
+package com.jurajkusnier.newsreader.storage
 
 import android.content.Context
 import androidx.room.Room
@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 
 @InstallIn(SingletonComponent::class)
 @Module
-object RoomModule {
+object StorageModule {
 
     @Provides
     fun provideDatabase(@ApplicationContext context: Context) =

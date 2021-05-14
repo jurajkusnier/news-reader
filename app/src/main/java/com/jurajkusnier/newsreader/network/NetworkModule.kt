@@ -1,4 +1,4 @@
-package com.jurajkusnier.newsreader.api
+package com.jurajkusnier.newsreader.network
 
 import com.jurajkusnier.newsreader.BuildConfig
 import com.squareup.moshi.Moshi
